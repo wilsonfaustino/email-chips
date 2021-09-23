@@ -35,7 +35,7 @@ function App() {
                 mt='5'
                 borderRadius='md'
                 borderStyle='dashed'
-                borderColor='purple.500'
+                borderColor='purple.200'
                 borderWidth='2px'
                 bgColor='white'
             >
@@ -44,7 +44,7 @@ function App() {
                         {value}
                     </Code>
                 </Text>
-                <Button onClick={onCopy} ml={2}>
+                <Button onClick={onCopy} ml={2} variant='outline'>
                     {hasCopied ? "Copiado" : "Copiar"}
                 </Button>
             </Center>
