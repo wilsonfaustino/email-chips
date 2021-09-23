@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import { Button, Center, Code, Container, Divider, Heading, Text, useBreakpointValue, useClipboard } from '@chakra-ui/react'
+import { InputMail } from './InputMail'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    const [formState, setFormState] = useState<string[]>([])
+    const [value] = useState('To: John Doe <john.doe@gmail.com> Cc: Jane Doe <jane.doe@gmail.com>')
+    // chakra hooks
+    const { hasCopied, onCopy } = useClipboard(value)
+    const isWideVersion = useBreakpointValue({
+        base: false,
+        lg: true
+    })
+
+    return (
+        <Container
+            minW={isWideVersion ? 1000 : '90%'}
+            bgColor='gray.100'
+            mt='10'
+            borderRadius='lg'
+            p='8'
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <Heading>Implementação de Email Chips</Heading>
+            <Divider my='6' borderColor='gray.500' />
+            <InputMail
+                name='contactlist'
+                label='Lista de contatos (label opcional)' 
+                value={formState}
+                onChange={setFormState}
+            />
+
+            <Center
+                w='100%'
+                p='6'
+                mt='5'
+                borderRadius='md'
+                borderStyle='dashed'
+                borderColor='purple.500'
+                borderWidth='2px'
+                bgColor='white'
+            >
+                <Text>Exemplo para teste da função colar:{` `}
+                    <Code colorScheme='purple' onClick={onCopy}>
+                        {value}
+                    </Code>
+                </Text>
+                <Button onClick={onCopy} ml={2}>
+                    {hasCopied ? "Copiado" : "Copiar"}
+                </Button>
+            </Center>
+
+        </Container>
+    )
 }
 
-export default App;
+export default App
